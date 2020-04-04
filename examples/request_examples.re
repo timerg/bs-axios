@@ -1,14 +1,14 @@
 /* Simple request */
 Js.Promise.(
   Axios.get("/user?ID=12345")
-  |> then_(response => resolve(Js.log(response##data)))
+  |> then_(response => resolve(Js.log(response->Axios_types.dataGet)))
   |> catch(error => resolve(Js.log(error)))
 );
 
 /* Post requests */
 Js.Promise.(
   Axios.post("/user")
-  |> then_(response => resolve(Js.log(response##data)))
+  |> then_(response => resolve(Js.log(response->Axios_types.dataGet)))
   |> catch(error => resolve(Js.log(error)))
 );
 
@@ -21,7 +21,7 @@ Js.Promise.(
       user;
     },
   )
-  |> then_(response => resolve(Js.log(response##data)))
+  |> then_(response => resolve(Js.log(response->Axios_types.dataGet)))
   |> catch(error => resolve(Js.log(error)))
 );
 
@@ -29,7 +29,9 @@ Js.Promise.(
 Js.Promise.(
   Axios.all2((Axios.get("/users/1"), Axios.get("/users/1/friends")))
   |> then_(((user, friends)) =>
-       resolve(Js.log2(user##data, friends##data))
+       resolve(
+         Js.log2(user->Axios_types.dataGet, friends->Axios_types.dataGet),
+       )
      )
   |> catch(error => resolve(Js.log(error)))
 );

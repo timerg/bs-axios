@@ -8,13 +8,13 @@ type responseTransformer('data, 'resultData);
 
 type paramsSerializer('a) = Js.t('a) => string;
 
+[@bs.deriving abstract]
 type response('a, 'b) = {
-  .
-  "data": 'a,
-  "status": int,
-  "statusText": string,
-  "headers": Js.t('b),
-  "config": config,
+  data: 'a,
+  status: int,
+  statusText: string,
+  headers: Js.t('b),
+  config,
 };
 
 type adapter('a, 'b) = config => Js.Promise.t(response('a, 'b));
